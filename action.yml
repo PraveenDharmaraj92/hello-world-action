@@ -1,0 +1,25 @@
+name: 'Hello World'
+description: This action will greet a person
+inputs:
+  name: 
+    description: Name of the person
+    required: true
+
+outputs:
+  name_length:
+    description: Length of given name
+    value: ${{steps.length_calc.outputs.name_length}}
+
+runs:
+  using: composite
+  steps:
+    - name: Echo input name
+      env:
+        NAME: ${{inputs.name}}
+      run: echo "Hello $NAME!"
+    - name : Count length of name
+      id: length_calc
+      run: |
+        name=${{inputs.name}}
+        length=${#name}
+        echo "name_length=$length" >> $GITHUB_OUTPUT
