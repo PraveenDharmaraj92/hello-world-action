@@ -14,11 +14,13 @@ runs:
   using: composite
   steps:
     - name: Echo input name
+      shell: bash
       env:
         NAME: ${{inputs.name}}
       run: echo "Hello $NAME!"
     - name : Count length of name
       id: length_calc
+      shell: bash
       run: |
         name=${{inputs.name}}
         length=${#name}
